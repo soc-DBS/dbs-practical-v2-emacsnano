@@ -1,7 +1,7 @@
 const { query } = require('../database');
 
 module.exports.generateModulesPerformance = function generateModulesPerformance() {
-    const sql = 'SELECT * FROM get_modules_performance()';
+    const sql = 'SELECT * FROM get_modules_performance() AS result';
     return query(sql)
         .then(function (result) {
             const rows = result.rows;
@@ -11,6 +11,18 @@ module.exports.generateModulesPerformance = function generateModulesPerformance(
             throw error;
         });
 };
+
+// module.exports.generateModulesPerformance = function generateModulesPerformance() {
+//     const sql = 'SELECT * FROM get_modules_performance()';
+//     return query(sql)
+//         .then(function (result) {
+//             const rows = result.rows;
+//             return rows;
+//         })
+//         .catch(function (error) {
+//             throw error;
+//         });
+// };
 
 module.exports.calculateStudentsGPA = function calculateStudentsGPA() {
     const sql = 'CALL calculate_students_gpa()';

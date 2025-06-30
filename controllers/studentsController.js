@@ -1,18 +1,26 @@
 const { UNIQUE_VIOLATION_ERROR, RAISE_EXCEPTION } = require('../errors');
 const studentModel = require('../models/students');
 
-module.exports.retrieveAll = function (req, res) {
-    // Get all students
-    return studentModel
-        .retrieveAll()
-        .then(function (allStudents) {
-            return res.json({ students: allStudents });
-        })
-        .catch(function (error) {
-            console.error(error);
-            return res.status(500).json({ error: "Unknown Error" });
-        });
+    module.exports.retrieveAll = function retrieveAll() {
+    // retrieve students via stored procedure
+    const sql = `SELECT adm_no, stud_name, gender, crse_code, gpa, gpa_last_updated FROM student`;
+        return query(sql).then(function (result) {
+        return result.rows;
+    });
 }
+
+// module.exports.retrieveAll = function (req, res) {
+//     // Get all students
+//     return studentModel
+//         .retrieveAll()
+//         .then(function (allStudents) {
+//             return res.json({ students: allStudents });
+//         })
+//         .catch(function (error) {
+//             console.error(error);
+//             return res.status(500).json({ error: "Unknown Error" });
+//         });
+// }
 
 module.exports.enrolNewStudent = function (req, res) {
     const adminNumber = req.body.adminNumber;
